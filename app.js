@@ -17,6 +17,7 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var labelRouter = require('./routes/labels');
 var taskRouter = require('./routes/tasks');
+var subtaskRouter = require('./routes/subtasks');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/label', labelRouter);
 app.use('/task', taskRouter);
+app.use('/subtask', subtaskRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

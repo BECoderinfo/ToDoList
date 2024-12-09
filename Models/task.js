@@ -15,11 +15,6 @@ const taskSchema = new mongoose.Schema({
     dueDate: {
         type: Date
     },
-    priority: {
-        type: String,
-        enum: ['Low', 'Medium', 'High'],
-        default: 'Low'
-    },
     status: {
         type: String,
         enum: ['Pending', 'Completed', 'In Progress'],
@@ -30,20 +25,18 @@ const taskSchema = new mongoose.Schema({
         ref: 'Label'
     },
     subtasks: [{
-        title: {
-            type: String
-        },
-        status: {
-            type: String,
-            enum: ['Pending', 'Completed'],
-            default: 'Pending'
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subtask'
     }],
     isArchived: {
         type: Boolean,
         default: false
     },
-    reOpen: {
+    isReOpen: {
+        type: Boolean,
+        default: false
+    },
+    isPrioritized: {
         type: Boolean,
         default: false
     }
