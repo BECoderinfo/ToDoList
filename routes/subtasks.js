@@ -6,7 +6,8 @@ const {
     getSubtasksByTaskId, 
     getSubtaskById, 
     updateSubtaskById, 
-    deleteSubtaskById
+    deleteSubtaskById,
+    updateSubtaskStatus
     
 } = require('../Controllers/subtaskController');
 
@@ -15,5 +16,6 @@ router.get('/getall/:taskId', getSubtasksByTaskId);
 router.get('/get/:id', getSubtaskById);
 router.put('/update/:id', updateSubtaskById);
 router.delete('/delete/:id', deleteSubtaskById);
+router.put('/updatestatus/:id', updateSubtaskStatus);
 
 module.exports = router

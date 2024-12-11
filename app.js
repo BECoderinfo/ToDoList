@@ -18,6 +18,7 @@ var adminRouter = require('./routes/admin');
 var labelRouter = require('./routes/labels');
 var taskRouter = require('./routes/tasks');
 var subtaskRouter = require('./routes/subtasks');
+var reminderRouter = require('./routes/reminder');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/admin', adminRouter);
 app.use('/label', labelRouter);
 app.use('/task', taskRouter);
 app.use('/subtask', subtaskRouter);
+app.use('/reminder', reminderRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

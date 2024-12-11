@@ -43,7 +43,7 @@ const createSubtask = async (req, res) => {
 const getSubtasksByTaskId = async (req, res) => {
     try {
         const { taskId } = req.params;
-        const subtasks = await Subtask.find({ task: taskId });
+        const subtasks = await Subtask.find({taskId});
         res.status(200).json({ success: true, message: 'Subtasks found successfully', subtasks });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -88,13 +88,28 @@ const updateSubtaskById = async (req, res) => {
     }
 };
 
+// status update
+const updateSubtaskStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        const subtask = await Subtask.findByIdAndUpdate(id, { status }, { new: true });
+        if (!subtask) {
+            return res.status(404).json({ success: false, message: 'Subtask not found' });
+        }
+        res.status(200).json({ success: true, message: 'Subtask updated successfully', subtask });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
 // delete a subtask by ID
 const deleteSubtaskById = async (req, res) => {
     try {
-        const { id, taskId } = req.params;
+        const { id } = req.params;
         const subtask = await Subtask.findByIdAndDelete(id);
 
-        const task = await Task.findById(taskId);
+        const task = await Task.findById(subtask.taskId);
         task.subtasks.pull(id);
         await task.save();
 
@@ -106,8 +121,7 @@ const deleteSubtaskById = async (req, res) => {
         }
         res.status(200).json({ 
             success: true, 
-            message: 'Subtask deleted successfully', 
-            subtask 
+            message: 'Subtask deleted successfully'
         });
     } catch (error) {
         res.status(500).json({
@@ -117,4 +131,4 @@ const deleteSubtaskById = async (req, res) => {
     }
 };
 
-module.exports = { createSubtask, getSubtasksByTaskId, getSubtaskById, updateSubtaskById, deleteSubtaskById };
+module.exports = { createSubtask, getSubtasksByTaskId, getSubtaskById, updateSubtaskById, deleteSubtaskById, updateSubtaskStatus };

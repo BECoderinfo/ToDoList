@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const subtaskSchema = new mongoose.Schema({
+    taskId : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
+    },
     title: {
         type: String,
     },
@@ -9,7 +13,7 @@ const subtaskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Completed', 'In Progress'],
+        enum: ['Pending', 'Completed'],
         default: 'Pending'
     },
 }, {timestamps: true});
