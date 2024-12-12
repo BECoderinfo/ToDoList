@@ -32,10 +32,9 @@ const create = async (req, res) => {
     }
 };
 
-
 const getAll = async (req, res) => {
     const userId = req.params.userId;
-    
+
     try {
         const reminders = await Reminder.find({ userId }).populate('taskId', 'name');
 
@@ -52,10 +51,8 @@ const getAll = async (req, res) => {
     }
 };
 
-
 const deleteReminder = async (req, res) => {
     const { id } = req.params;
-
     try {
         const reminder = await Reminder.findByIdAndDelete(id);
         if (!reminder) return res.status(404).json({ message: 'Reminder not found' });
